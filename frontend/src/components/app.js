@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import HomePage from "./homepage";
+import RoomJoinPage from "./RoomJoinPage";
+import CreateRoomPage from "./CreateRoomPage";
 
 export default class App extends Component{
 	constructor(props){
-		super(props)
+		super(props);
 	}
 	render()
 	{
-		return (<h1>DarkAge</h1>)
+			return (
+				<div>
+					<HomePage/>
+				</div>
+			);
 	}
 }
 
