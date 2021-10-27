@@ -2,7 +2,7 @@ from random import vonmisesvariate
 from django.db.models.query import QuerySet
 from django.http.response import JsonResponse
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer
+from .serializers import RoomSerializer, CreateRoomSerializer, UpdateRoomSerializer
 from .models import Room
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -80,6 +80,19 @@ class JoinRoom(APIView):
 
 		return Response({"Bad Request": "Invalid post data, did not find key"}, status=status.HTTP_400_BAD_REQUEST)
 
+class LeaveRoom(APIView):
+	def patch(self, request, format=None):
+		if "room_code" in self.request.session:
+			self.request.session.pop("room_code")
+			host_id = self.request.session.session_key
+			room_results = Room.objects.filter(host=host_id)
+			if len(room_results) > 0:
+				room = room_results[0]
+				room.delete()
+
+		return Response({"Message": "Success"}, status=status.HTTP_200_OK)
+		
+
 class UserInRoom(APIView):
 	def get(self, request, format=None):
 		if not self.request.session.exists(self.request.session.session_key):
@@ -88,3 +101,8 @@ class UserInRoom(APIView):
 			"code": self.request.session.get("room_code")
 		}
 		return JsonResponse(data, status=status.HTTP_200_OK)
+
+class UpdateView(APIView):
+	seializer_class = UpdateRoomSerializer
+	def patch(self, request, format=None):
+		pass
