@@ -23,7 +23,8 @@ export default class HomePage extends Component {
 		.then(data => {
 			this.setState({
 					roomCode: data.code,
-				})
+				});
+				console.log(data)
 		});
 	}
 
@@ -63,7 +64,6 @@ export default class HomePage extends Component {
 			<Router>
 				<Switch>
 					<Route exact path="/" render={() => {
-						console.log(this.state.roomCode)
 						return this.state.roomCode ? (<Redirect to={`/room/${this.state.roomCode}`}/>) : this.renderHomePage();
 					}}/>
 					<Route path="/join" component={RoomJoinPage}/>

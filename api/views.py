@@ -1,12 +1,9 @@
-from random import vonmisesvariate
-from django.db.models.query import QuerySet
 from django.http.response import JsonResponse
 from rest_framework import generics, status
 from .serializers import RoomSerializer, CreateRoomSerializer, UpdateRoomSerializer
 from .models import Room
 from rest_framework.views import APIView
 from rest_framework.response import Response
-# Create your views here.
 
 class RoomView(generics.ListAPIView):
 	queryset = Room.objects.all()
@@ -38,6 +35,8 @@ class CreateRoomView(APIView):
 		if not self.request.session.exists(self.request.session.session_key):
 			self.request.session.create()
 
+		print("other on")
+		print(self.request.session.session_key)
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
 			guest_can_pause = serializer.data.get("guest_can_pause")
