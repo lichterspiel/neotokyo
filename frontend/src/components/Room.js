@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Button, Typography } from "@material-ui/core";
 import CreateRoomPage from "./CreateRoomPage";
+import MusicPlayer from "./MusicPlayer";
 
 export default class Room extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class Room extends Component {
       isHost: false,
       showSettings: false,
       spotifyAuthenticated: false,
+      song: {},
     };
     this.roomCode = this.props.match.params.roomCode;
     this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
@@ -19,19 +21,42 @@ export default class Room extends Component {
 		this.renderSettings = this.renderSettings.bind(this);
     this.getRoomDetails = this.getRoomDetails.bind(this);
     this.authenticateSpotify = this.authenticateSpotify.bind(this);
+    this.getCurrentSong = this.getCurrentSong.bind(this)
     this.getRoomDetails();
+    this.getCurrentSong();
+  }
+
+  // after component finish call current song every 1000mil seconds
+  componentDidMount(){
+    this.interval = setInterval(this.getCurrentSong, 1000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
   }
 
   authenticateSpotify(){
     fetch("/spotify/is-authenticated").then(response => response.json()).then(data => {
       this.setState({spotifyAuthenticated: data.status});
-      console.log(data.status)
       if (!data.status){
         fetch("/spotify/get-auth-url").then(response => response.json()).then(data => {
           window.location.replace(data.url);
         })
       }
     });
+  }
+
+  getCurrentSong(){
+    fetch("/spotify/current-song").then(response => {
+      if (!response.ok){
+        return {};
+      } else {
+        return response.json();
+      }
+    }).then(data => {
+      this.setState({song: data});
+      console.log(data)
+    })
   }
 
   getRoomDetails() {
@@ -54,6 +79,7 @@ export default class Room extends Component {
         }
       });
   }
+
 
   updateShowSettings(value) {
     this.setState({
@@ -117,21 +143,7 @@ export default class Room extends Component {
             Code: {this.roomCode}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6" component="h6">
-            Votes to skip: {this.state.votesToSkip.toString()}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6" component="h6">
-            Host: {this.state.isHost.toString()}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6" component="h6">
-            guest can pause: {this.state.guestCanPause.toString()}
-          </Typography>
-        </Grid>
+        <MusicPlayer {...this.state.song}/>
         {this.state.isHost ? this.renderSettingsButton() : null}
         <Grid item xs={12}>
           <Button
