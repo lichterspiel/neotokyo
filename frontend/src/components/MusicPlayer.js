@@ -31,11 +31,19 @@ export default class MusicPlayer extends Component {
     fetch("/spotify/play", requestOptions);
   }
 
+  skipSong(){
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("/spotify/skip", requestOptions);
+  }
+
   render() {
     const songProgress = (this.props.progress / this.props.duration) * 100;
     return (
       <Card>
-        <Grid container align="center" alignItems="center">
+        <Grid container  alignItems="center">
           <Grid item xs={4}>
             <img src={this.props.image_url} height="100%" width="100%" />
           </Grid>
@@ -58,8 +66,8 @@ export default class MusicPlayer extends Component {
               >
                 {this.props.is_playing ? <PauseIcon/> : <PlayArrowIcon/>}
               </IconButton>
-              <IconButton>
-                <SkipNectIcon />
+              <IconButton onClick={() => this.skipSong()}>
+                <SkipNectIcon/>{" "} {this.props.votes} /{" "} {this.props.votes_required}
               </IconButton>
             </div>
           </Grid>

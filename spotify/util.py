@@ -22,7 +22,8 @@ def update_create_user_tokens(session_key, access_token, token_type, refresh_tok
 		tokens.access_token = access_token
 		tokens.expires_in = expires_in
 		tokens.token_type = token_type
-		tokens.save(update_fields=["access_token", "expires_in", "token_type"])
+		tokens.refresh_token = refresh_token
+		tokens.save(update_fields=["access_token", "expires_in", "token_type", "refresh_token"])
 	else:
 		tokens = SpotifyToken(user=session_key, access_token=access_token, refresh_token=refresh_token, token_type=token_type, expires_in=expires_in)
 		tokens.save()
@@ -53,7 +54,6 @@ def refresh_spotify_token(session_key):
 	print(response)
 
 	access_token = response.get("access_token")
-	print(access_token)
 	token_type = response.get("token_type")
 	expires_in = response.get("expires_in")
 
@@ -79,3 +79,6 @@ def play_song(session_key):
 
 def pause_song(session_key):
 	return execute_spotify_api_request(session_key, "player/pause", put_=True)
+
+def skip_song(session_key):
+	return execute_spotify_api_request(session_key, "player/next", post_=True)
