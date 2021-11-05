@@ -10,8 +10,8 @@ import {
   FormControlLabel,
   FormControl,
   Collapse,
-} from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+} from "@mui/material";
+import Alert from '@mui/material/Alert';
 import { Link } from "react-router-dom";
 
 export default class CreateRoomPage extends Component {

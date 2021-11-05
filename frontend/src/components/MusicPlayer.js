@@ -5,10 +5,10 @@ import {
   Card,
   IconButton,
   LinearProgress,
-} from "@material-ui/core";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
-import SkipNectIcon from "@material-ui/icons/SkipNext";
+} from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+import SkipNectIcon from "@mui/icons-material/SkipNext";
 
 export default class MusicPlayer extends Component {
   constructor(props) {
@@ -63,10 +63,10 @@ export default class MusicPlayer extends Component {
                 onClick={() => {
                   this.props.is_playing ? this.pauseSong() : this.playSong();
                 }}
-              >
+                size="large">
                 {this.props.is_playing ? <PauseIcon/> : <PlayArrowIcon/>}
               </IconButton>
-              <IconButton onClick={() => this.skipSong()}>
+              <IconButton onClick={() => this.skipSong()} size="large">
                 <SkipNectIcon/>{" "} {this.props.votes} /{" "} {this.props.votes_required}
               </IconButton>
             </div>

@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { Grid, Button, Typography, IconButton} from "@material-ui/core";
-import NavigateBefore from "@material-ui/icons/NavigateBefore";
+import { Grid, Button, Typography, IconButton} from "@mui/material";
+import NavigateBefore from "@mui/icons-material/NavigateBefore";
 import { Link } from "react-router-dom";
-import NavigateNext from "@material-ui/icons/NavigateNext";
+import NavigateNext from "@mui/icons-material/NavigateNext";
 
 const pages = {
 	JOIN: "pages.join",
@@ -26,7 +26,7 @@ export default function Info(props){
 	});
 
 	return (
-		<Grid container align="center" spacing={1}>
+        <Grid container align="center" spacing={1}>
 			<Grid itme xs={12}>
 				<Typography component="h4" variant="h4">
 					What is NeoTokyo?
@@ -36,7 +36,9 @@ export default function Info(props){
 				<Typography variant="body1">{page === pages.JOIN ? joinInfo() : createInfo()}</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<IconButton onClick={() => {page === pages.CREATE ? setPage(pages.JOIN) : setPage(pages.CREATE)}}>
+				<IconButton
+                    onClick={() => {page === pages.CREATE ? setPage(pages.JOIN) : setPage(pages.CREATE)}}
+                    size="large">
 					{page === pages.CREATE ?  <NavigateBefore/> : <NavigateNext/>}
 				</IconButton>
 			</Grid>
@@ -44,7 +46,7 @@ export default function Info(props){
 				<Button color="secondary" variant="contained" to="/" component={Link}>Back</Button>
 			</Grid>
 		</Grid>
-	);
+    );
 }
 
 

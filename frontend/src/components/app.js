@@ -1,22 +1,29 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { render } from "react-dom";
 import HomePage from "./homepage";
-import RoomJoinPage from "./RoomJoinPage";
-import CreateRoomPage from "./CreateRoomPage";
+import { createTheme, ThemeProvider, StyledEngineProvider, adaptV4Theme } from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline';
 
-export default class App extends Component{
-	constructor(props){
-		super(props);
-	}
-	render()
-	{
-			return (
-				<div className="center">
-					<HomePage/>
-				</div>
-			);
-	}
+export default function App(props) {
+	const [toggleDark, settoggleDark] = useState(false);
+	const theme = createTheme(adaptV4Theme({
+		palette: {
+			//mode: toggleDark ? "dark" : "light",
+			type: "dark",
+		},
+	}));
+
+  return (
+      <div className="center">
+              <StyledEngineProvider injectFirst>
+                  <ThemeProvider theme={theme}>
+                      <CssBaseline/>
+              <HomePage/>
+                  </ThemeProvider>
+              </StyledEngineProvider>
+      </div>
+  );
 }
 
 const appDiv = document.getElementById("app");
-render(<App/>, appDiv);
+render(<App />, appDiv);

@@ -3,10 +3,11 @@ import RoomJoinPage from "./RoomJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
 import Room from "./Room";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
-import { Grid, Button, ButtonGroup, Typography} from "@material-ui/core";
+import { Grid, Button, ButtonGroup, Typography} from "@mui/material";
 import Info from "./Info";
 
 export default class HomePage extends Component {
+
 	constructor(props)
 	{
 		super(props);
@@ -41,10 +42,7 @@ export default class HomePage extends Component {
 					<ButtonGroup disableElevation variant="contained" color="primary">
 						<Button color="primary" to="/join" component={Link}>
 							Join a Room
-						</Button>
-						<Button color="default" to="/info" component={Link}>
-							Info
-						</Button>
+						</Button>	
 						<Button color="secondary" to="/create" component={Link}>
 							Create a Room
 						</Button>
