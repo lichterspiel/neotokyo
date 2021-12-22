@@ -5,10 +5,13 @@ Currently a Webapp to listen to Spotify songs together simultaneously.
 Using React and Django.
 
 # Backend API 
-Creating Rooms and joning them with an REST API
+Room creation and joining with REST
+
+# Spotify
+Connection with the Spotify API to pause/play and skip songs
 
 # Frontend
-React.js for Frontend with Material UI
+React.js combined with Material UI for the looks
 
 # Run
 ```text
