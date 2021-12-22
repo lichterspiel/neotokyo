@@ -20,14 +20,17 @@ export default function App(props) {
     <div className="center">
         <ThemeProvider theme={theme}>
           <CssBaseline/>
-          <FormControlLabel control={ 
-            <Switch checked={toggleDark} onChange={() => {settoggleDark(!toggleDark)}}/>
-          } label="Theme"/>
-          <HomePage/>
+            <HomePage/>
         </ThemeProvider>
     </div>
   );
 }
+/*
+Für switchen von light und dark mode
+<FormControlLabel control={ 
+            <Switch checked={toggleDark} onChange={() => {settoggleDark(!toggleDark)}}/>
+          } label="Theme"/>
+*/
 
 const appDiv = document.getElementById("app");
-render(<App />, appDiv);
+render(<App/>, appDiv);

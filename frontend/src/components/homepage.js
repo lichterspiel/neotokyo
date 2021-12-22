@@ -5,6 +5,7 @@ import Room from "./Room";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import { Grid, Button, ButtonGroup, Typography} from "@mui/material";
 import Info from "./Info";
+import Podium from "./Podium";
 
 export default class HomePage extends Component {
 
@@ -70,6 +71,7 @@ export default class HomePage extends Component {
 					<Route path="/join" component={RoomJoinPage}/>
 					<Route path="/info" component={Info}/>
 					<Route path="/create" component={CreateRoomPage}/>
+					<Route path="/3d" component={Podium}/>
 					<Route path="/room/:roomCode" render = { props => {
 						return <Room {...props} leaveRoomCallback={this.clearRoomCode}/>;
 					}} />
